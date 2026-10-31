@@ -44,15 +44,6 @@
     .metric-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
     .metric-val { font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 700; margin-bottom: 4px; }
     .metric-sub { font-size: 10.5px; color: var(--text-muted); }
-    
-    /* Assistant Terminal Box */
-    .hql-bot-container { background: var(--bg-card); border: 1.5px solid var(--border); border-radius: 12px; padding: 20px; margin-top: 20px; text-align: left; }
-    .bot-header { display: flex; align-items: center; gap: 8px; font-family: 'Cinzel', serif; font-size: 14px; font-weight: 700; color: var(--gold-light); margin-bottom: 12px; }
-    .bot-chip-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
-    .bot-chip { background: rgba(120, 120, 120, 0.08); border: 1px solid var(--border-subtle); color: var(--cyan); font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 6px 12px; border-radius: 20px; cursor: pointer; transition: all 0.2s; }
-    .bot-chip:hover { border-color: var(--gold); color: var(--gold-light); background: rgba(212, 175, 55, 0.08); }
-    .bot-terminal-output { background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 14px; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.6; color: var(--text-main); min-height: 80px; }
-    .bot-terminal-output strong { color: var(--gold-light); }
 
     .section-head { text-align: center; margin-bottom: 36px; }
     .section-tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .14em; color: var(--gold); text-transform: uppercase; }
@@ -179,31 +170,10 @@
             <div class="metric-val" id="dispEquity" style="color:var(--gold-light);">$782.50</div>
             <div class="metric-sub" id="dispGrowthSub">+56.5% Growth</div>
           </div>
-        </div>        <!-- HQL Assistant Terminal -->
-        <div class="hql-bot-container">
-          <div class="bot-header">
-            <div class="pulse-dot"></div>
-            HQL RISK ENGINE &amp; PROTOCOL ASSISTANT
-          </div>
-          <div style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 10px;">
-            Click a scenario below to audit protocol expectancy and math:
-          </div>
-          <div class="bot-chip-grid">
-            <button type="button" class="bot-chip" onclick="hqlBotAnswer('losses20')">What if 20 consecutive losses?</button>
-            <button type="button" class="bot-chip" onclick="hqlBotAnswer('streak6days')">What if 3 losses/day for 6 days?</button>
-            <button type="button" class="bot-chip" onclick="hqlBotAnswer('recovery')">How does 1:4.55 recover losses?</button>
-            <button type="button" class="bot-chip" onclick="hqlBotAnswer('strategy')">What is the secret entry setup?</button>
-            <button type="button" class="bot-chip" onclick="hqlBotAnswer('tiers')">Difference in frameworks?</button>
-          </div>
-          <div class="bot-terminal-output" id="hqlBotDisplay">
-            <strong>TERMINAL STATUS: READY</strong><br />
-            Select a risk scenario above to calculate protocol expectancy and execution rules.
-          </div>
         </div>
       </div>
     </section>
-
-    <section>
+        <section>
       <div class="section-head">
         <span class="section-tag">Direct Institutional Access</span>
         <h3 class="section-title">Select Your Framework</h3>
@@ -262,8 +232,8 @@
     <p style="margin-top:6px;">Trading spot and leveraged instruments involves substantial risk of loss. For educational and research purposes only.</p>
   </footer>
 
-  <!-- Floating Audio Player Widget -->
-  <div style="position:fixed;bottom:16px;right:16px;z-index:9999;background:rgba(12,16,23,0.95);border:1.5px solid #d4af37;border-radius:30px;padding:6px 12px;box-shadow:0 8px 24px rgba(0,0,0,0.7);display:flex;align-items:center;gap:8px;">
+  <!-- Floating Audio Player Widget (Moved to Bottom Left so it does not overlap Voiceflow) -->
+  <div style="position:fixed;bottom:16px;left:16px;z-index:9999;background:rgba(12,16,23,0.95);border:1.5px solid #d4af37;border-radius:30px;padding:6px 12px;box-shadow:0 8px 24px rgba(0,0,0,0.7);display:flex;align-items:center;gap:8px;">
     <span style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:#f5d77f;">PLAY MUSIC:</span>
     <audio controls controlslist="nodownload noplaybackrate" style="height:32px;max-width:180px;" src="https://files.catbox.moe/5womaw.mp3"></audio>
   </div>
@@ -272,37 +242,6 @@
     (function () {
       const WHATSAPP_NUM = "918369881031";
       const INSTAGRAM_HANDLE = "hqlofficial";
-
-      const HQL_KNOWLEDGE = {
-        losses20: "<strong>AUDIT: 20 CONSECUTIVE LOSSES (0.31% Probability)</strong><br />" +
-                  "• <strong>Dynamic 5% Preservation:</strong> Account balance drops to ~$179 (35.8% capital preserved). You do NOT blow up.<br />" +
-                  "• <strong>Recovery Math:</strong> Due to 1:4.55+ asymmetric payoff, just 4 to 5 disciplined wins fully recover the entire series.<br />" +
-                  "• <strong>Circuit Breakers:</strong> Execution stops automatically after daily drawdown limits are reached.",
-        
-        streak6days: "<strong>AUDIT: 3 LOSSES/DAY FOR 6 DAYS (18 Total Losses)</strong><br />" +
-                     "• <strong>Preservation:</strong> Remaining capital is ~$198 (~40% preserved) under dynamic sizing.<br />" +
-                     "• <strong>Execution Freeze:</strong> Two consecutive max-loss days triggers a desk audit to verify volatility before live execution resumes.<br />" +
-                     "• <strong>Expectancy:</strong> Less than 5 winning trades are required to overcome an 18-loss streak.",
-
-        recovery: "<strong>ASYMMETRIC MATHEMATICAL ADVANTAGE (1:4.55+ R:R)</strong><br />" +
-                  "• Risk $25 to return $113.75+ per execution.<br />" +
-                  "• Even at an ultra-conservative 25% win rate (1 win in 4 trades), net expectancy remains strongly positive (+EV).",
-
-        strategy: "<strong>PROPRIETARY DESK DIRECTIVE:</strong><br />" +
-                  "Microstructure entry criteria, liquidity footprints, and internal execution checklists are proprietary.<br />" +
-                  "These are only released inside <em>The Execution Specification</em> or via <em>Private Mentorship</em>.",
-
-        tiers: "<strong>FRAMEWORK ACCESS COMPARISON:</strong><br />" +
-               "• <strong>The Execution Specification (₹9,999):</strong> Full systematic rules, risk engine, and self-paced playbook.<br />" +
-               "• <strong>Elite Desk Mentorship (₹29,999):</strong> Private 1-on-1 terminal screen-shares and direct trade execution audits."
-      };
-
-      window.hqlBotAnswer = function(topic) {
-        const display = document.getElementById('hqlBotDisplay');
-        if (display && HQL_KNOWLEDGE[topic]) {
-          display.innerHTML = HQL_KNOWLEDGE[topic];
-        }
-      };
 
       function openWhatsApp(msgText) {
         const msg = encodeURIComponent(msgText);
@@ -408,9 +347,8 @@
       onCapitalChange();
     })();
   </script>
-    </script>
 
-  <!-- PASTE VOICEFLOW CODE DIRECTLY BELOW THIS LINE -->
+  <!-- Voiceflow Live HQL Assistant Widget -->
   <script type="text/javascript">
     (function(d, t) {
         var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
@@ -428,6 +366,3 @@
   </script>
 </body>
 </html>
-
-
-        
